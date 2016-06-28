@@ -1,0 +1,3 @@
+<launch>
+  <node name="producer_node" pkg="ros_udp_test" type="producer_node"/>
+</launch>

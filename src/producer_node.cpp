@@ -17,9 +17,9 @@ main(int argc, char **argv)
     if (!priv_nh.getParam("rate", rate)) {
         ROS_WARN_STREAM("couldn't find 'rate' configuration parameter, using the default=" << kDefaultRateParameter);
         rate = kDefaultRateParameter;
-    } else {
-        ROS_INFO_STREAM("Publish messages at rate " << rate << " hz.");
     }
+
+    ROS_INFO_STREAM("Publishing messages at rate " << rate << " hz.");
 
     ros::Publisher chatter_pub = nh.advertise<geometry_msgs::Vector3>("chatter", queue_size);
     ros::Rate loop_rate(rate);

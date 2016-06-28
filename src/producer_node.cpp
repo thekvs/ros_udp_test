@@ -1,15 +1,25 @@
 #include <ros/ros.h>
 #include <geometry_msgs/Vector3.h>
 
+static const int kDefaultRateParameter = 10;
+
 int
 main(int argc, char **argv)
 {
     ros::init(argc, argv, "producer");
 
     ros::NodeHandle nh;
+    ros::NodeHandle priv_nh("~");
 
     uint32_t queue_size = 1000;
-    uint32_t rate = 30;
+    int rate;
+
+    if (!priv_nh.getParam("rate", rate)) {
+        ROS_WARN_STREAM("couldn't find 'rate' configuration parameter, using the default=" << kDefaultRateParameter);
+        rate = kDefaultRateParameter;
+    } else {
+        ROS_INFO_STREAM("Publish messages at rate " << rate << " hz.");
+    }
 
     ros::Publisher chatter_pub = nh.advertise<geometry_msgs::Vector3>("chatter", queue_size);
     ros::Rate loop_rate(rate);

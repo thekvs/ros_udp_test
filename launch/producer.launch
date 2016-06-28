@@ -1,3 +1,5 @@
 <launch>
-  <node name="producer_node" pkg="ros_udp_test" type="producer_node"/>
+  <node name="producer_node" pkg="ros_udp_test" type="producer_node" output="screen">
+    <rosparam file="$(find ros_udp_test)/config/params.yaml" command="load"/>
+  </node>
 </launch>
